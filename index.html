@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Portfolio Saya</title>
+  <style>
+  * { margin: 0; padding: 0; box-sizing: border-box; font-family: Arial, sans-serif; }
+
+  /* 🔥 background utama */
+  body {
+    background: linear-gradient(rgba(0,0,0,.6), rgba(0,0,0,.6)),
+                url('portofolio/1.jpeg') no-repeat center/cover;
+    background-attachment: fixed; /* biar wallpaper diam */
+    color: #fff; /* default teks putih supaya kontras */
+  }
+
+  nav {
+    position: fixed; top: 0; left: 0; width: 100%; 
+    background: rgba(0,0,0,0.7); 
+    padding: 15px; display: flex; justify-content: center; gap: 20px; 
+    z-index: 100; backdrop-filter: blur(6px);
+  }
+  nav a { color: #fff; text-decoration: none; font-weight: bold; }
+
+  header {
+    width: 100%; 
+    min-height: 100vh; 
+    display: flex; justify-content: center; align-items: center; 
+    flex-direction: column; text-align: center; padding: 20px;
+  }
+  header h1 { font-size: 3rem; margin-bottom: 10px; }
+  header p { font-size: 1.2rem; max-width: 600px; }
+
+  section { 
+    padding: 80px 20px; 
+    max-width: 1200px; 
+    margin: auto; 
+  }
+
+  /* 🔥 card transparan glass */
+  .projects { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
+  .card { 
+    background: rgba(255,255,255,0.15); 
+    border-radius: 15px; 
+    overflow: hidden; 
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+    backdrop-filter: blur(10px); 
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255,255,255,0.3);
+  }
+  .card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 25px rgba(0,0,0,0.4);
+  transition: all 0.3s ease;
+}
+  .card img { width: 100%; height: 200px; object-fit: cover; }
+  .card-content { padding: 20px; color: #fff; }
+  .card-content h3 { margin-bottom: 10px; }
+
+  footer { 
+    background: rgba(0,0,0,0.8); 
+    color: #fff; text-align: center; padding: 20px; 
+    backdrop-filter: blur(5px);
+  }
+
+  @media(max-width:768px){
+    header h1 { font-size: 2rem; }
+    header p { font-size: 1rem; }
+  }
+  a {
+  text-decoration: none;   /* hilangkan underline */
+  color: inherit;          /* biar warnanya ikut teks biasa */
+  outline: none;           /* hilangkan garis biru saat klik */
+}
+
+a:focus, a:active {
+  outline: none;
+}
+
+</style>
+
+</head>
+<body>
+  <nav>
+    <a href="#home">Home</a>
+    <a href="#projects">Portfolio</a>
+    <a href="#contact">Kontak</a>
+  </nav>
+
+  <header id="home">
+    <h1>Halo, Saya Akumuncak</h1>
+    <p>Web Developer | Membuat website modern, responsif, dan mudah digunakan</p>
+  </header>
+
+  <section id="projects">
+    <div class="projects">
+  <!-- Card 1 -->
+  <a href="a.html" class="card">
+    <img src="portofolio/12.JPG" alt="Project 1">
+    <div class="card-content">
+      <h3>Login Page</h3>
+      <p>Identifikasi User (admin, user, customer, karyawan).</p>
+    </div>
+  </a>
+
+  <!-- Card 2 -->
+  <a href="b.html" class="card">
+    <img src="portofolio/13.JPG" alt="Project 2">
+    <div class="card-content">
+      <h3>Management</h3>
+      <p>Integrasi dengan Sistem Lain, CRUD, dan laporan dinamis.</p>
+    </div>
+  </a>
+
+  <!-- Card 3 -->
+  <a href="c.html" class="card">
+    <img src="portofolio/14.JPG" alt="Project 3">
+    <div class="card-content">
+      <h3>Toko Online</h3>
+      <p>Mempermudah Pelanggan, Menjual Produk / Jasa Secara Online.</p>
+    </div>
+  </a>
+
+  <!-- Card 4 -->
+  <a href="d.html" class="card">
+    <img src="portofolio/15.JPG" alt="Project 4">
+    <div class="card-content">
+      <h3>Cafe</h3>
+      <p>Memperkenalkan cafe ke pelanggan dan mempermudah mereka mendapatkan informasi, reservasi, maupun promo.</p>
+    </div>
+  </a>
+</div>
+</section>
+
+  <section id="contact">
+    <h2 style="text-align:center; margin-bottom:20px;">Kontak Saya</h2>
+    <p style="text-align:center;">Email: muchammadruslainimubarok@gmail.com | WhatsApp: +62 813-3037-4533</p>
+  </section>
+
+  <footer>
+    <p>&copy;Akumuncak</p>
+  </footer>
+</body>
+</html>

@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Management Data</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+  /* 🔧 Responsive untuk HP */
+@media (max-width: 768px) {
+  body {
+    font-size: 14px;
+    margin: 0;
+  padding-top: 20px;
+  }
+
+  .container {
+    padding: 10px;
+  }
+
+  form label {
+    display: block;
+    margin-bottom: 5px;
+    font-size: 13px;
+  }
+
+  form input, form select, form button {
+    width: 100%;
+    margin-bottom: 10px;
+    font-size: 14px;
+    padding: 8px;
+  }
+
+  table {
+    font-size: 13px;
+    border-collapse: collapse;
+    width: 100%;
+    display: block;
+    overflow-x: auto; /* scroll ke samping kalau tabel kepanjangan */
+    white-space: nowrap;
+  }
+
+  table th, table td {
+    padding: 6px;
+  }
+
+  .actions button {
+    display: inline-block;
+    margin: 2px 0;
+    font-size: 12px;
+    padding: 6px 8px;
+  }
+}
+
+nav {
+    position: fixed; top: 0; left: 0; width: 100%; 
+    background: rgba(0,0,0,0.7); 
+    padding: 15px; display: flex; justify-content: center; gap: 20px; 
+    z-index: 100; backdrop-filter: blur(6px);
+  }
+  nav a { color: #fff; text-decoration: none; font-weight: bold; }
+
+
+    :root {
+      --bg: #0b0c0f;
+      --card: #12141a;
+      --muted: #9aa3b2;
+      --text: #e6eaf2;
+      --brand: #6ee7ff;
+      --brand-2: #a78bfa;
+      --danger: #ef4444;
+      --ok: #10b981;
+      --border: #232735;
+      --shadow: 0 8px 28px rgba(0,0,0,.35);
+      --radius: 16px;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0; padding-top: 30px; background:radial-gradient(1200px 600px at -10% -30%, rgba(110,231,255,.12), transparent 60%),
+      radial-gradient(900px 600px at 110% -10%, rgba(167,139,250,.12), transparent 60%), var(--bg);
+      color:var(--text); font-family:Inter,system-ui,Segoe UI,Roboto,Helvetica,Arial,sans-serif; line-height:1.45;
+    }
+    .container{max-width:1160px;margin:32px auto;padding:0 16px}
+    .appbar{display:flex;align-items:center;gap:12px;justify-content:space-between;margin-bottom:18px}
+    .title{font-weight:700;font-size:20px;letter-spacing:.2px}
+    .toolbar{display:flex;flex-wrap:wrap;gap:8px}
+    button,.btn{appearance:none;border:1px solid var(--border);background:#141823;color:var(--text);padding:10px 14px;border-radius:12px;cursor:pointer;transition:.2s;box-shadow:0 1px 0 rgba(255,255,255,.04) inset}
+    button:hover,.btn:hover{transform:translateY(-1px);border-color:#2a3042}
+    .btn.primary{background:linear-gradient(135deg, rgba(110,231,255,.15), rgba(167,139,250,.15));border:1px solid #2a344a}
+    .btn.danger{border-color:#3a1f24;background:linear-gradient(135deg, rgba(239,68,68,.12), rgba(239,68,68,.06));}
+    .btn.ghost{background:transparent}
+    .search{flex:1;min-width:220px;display:flex;align-items:center;gap:8px;background:#0f131b;border:1px solid var(--border);padding:10px 12px;border-radius:12px}
+    .search input{flex:1;background:transparent;border:0;outline:0;color:var(--text)}
+    .card{background:linear-gradient(180deg, rgba(255,255,255,.02), transparent), var(--card);border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow)}
+    .card-header{display:flex;align-items:center;justify-content:space-between;padding:16px;border-bottom:1px solid var(--border)}
+    .table-wrap{overflow:auto}
+    table{width:100%;border-collapse:separate;border-spacing:0}
+    thead th{position:sticky;top:0;background:#12141a;border-bottom:1px solid var(--border);text-align:left;font-weight:600;color:#d8deeb}
+    th,td{padding:12px 14px;border-bottom:1px solid var(--border);vertical-align:middle}
+    tbody tr:hover{background:#0f131b}
+    .chip{font-size:12px;padding:3px 8px;border-radius:999px;border:1px solid var(--border);background:#0c1017;color:#c7d2fe}
+    .muted{color:var(--muted)}
+    .empty{padding:32px;text-align:center;color:var(--muted)}
+
+    /* Modal */
+    .modal{position:fixed;inset:0;display:none;place-items:center;background:rgba(3,6,12,.65);backdrop-filter:blur(6px);z-index:50}
+    .modal.active{display:grid}
+    .dialog{width:min(720px,92vw);background:var(--card);border:1px solid var(--border);border-radius:18px;box-shadow:var(--shadow)}
+    .dialog header{display:flex;align-items:center;justify-content:space-between;padding:16px 18px;border-bottom:1px solid var(--border)}
+    .dialog .content{padding:16px 18px}
+    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
+    .field{display:flex;flex-direction:column;gap:6px}
+    .field label{font-size:13px;color:#c7cedc}
+    .field input,.field select,.field textarea{border:1px solid var(--border);background:#0f131b;color:var(--text);border-radius:12px;padding:10px 12px}
+    .dialog footer{display:flex;gap:8px;justify-content:flex-end;padding:14px 18px;border-top:1px solid var(--border)}
+
+    /* Badges & helpers */
+    .pill{border:1px dashed #2e3548;padding:8px 10px;border-radius:12px;font-size:12px;color:#c9d3e3}
+    .row-actions{display:flex;gap:6px}
+    .hide{display:none}
+    .right{margin-left:auto}
+    .nowrap{white-space:nowrap}
+    .w-100{width:100%}
+  </style>
+</head>
+<body>
+    <nav>
+    <a href="index.html#home">Home</a>
+    <a href="index.html#projects">Portfolio</a>
+    <a href="index.html#contact">Kontak</a>
+  </nav>
+  <div class="container">
+    <div class="appbar">
+      <div class="title">Management Data</div>
+      <div class="toolbar w-100">
+        <div class="search">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M21 21l-4.35-4.35M10.5 18a7.5 7.5 0 1 1 0-15 7.5 7.5 0 0 1 0 15Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+          <input id="q" placeholder="Cari data... (ctrl+k)" />
+        </div>
+        <button class="btn" id="btnColumns">Kelola Kolom</button>
+        <button class="btn primary" id="btnAdd">Tambah Data</button>
+        <button class="btn ghost" id="btnExport" title="Export JSON">Export</button>
+        <label class="btn ghost" for="importFile" title="Import JSON">Import</label>
+        <input id="importFile" type="file" accept="application/json" class="hide" />
+        <button class="btn danger" id="btnClear">Hapus Semua</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <div>
+          <div style="font-weight:600">Data Tersimpan</div>
+          <div class="muted" style="font-size:13px">Tabel & formulir dibangun otomatis dari daftar kolom.</div>
+        </div>
+        <div class="pill">
+          <span id="countRows">0</span> baris • <span id="countCols">0</span> kolom
+        </div>
+      </div>
+      <div class="table-wrap">
+        <table id="table">
+          <thead><tr id="thead"></tr></thead>
+          <tbody id="tbody"></tbody>
+        </table>
+        <div id="empty" class="empty">Belum ada data. Klik <b>Tambah Data</b> untuk membuat baris pertama.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: Record Form -->
+  <div class="modal" id="modalForm">
+    <div class="dialog">
+      <header>
+        <strong id="formTitle">Tambah Data</strong>
+        <button class="btn ghost" data-close="modalForm">✕</button>
+      </header>
+      <div class="content">
+        <form id="recordForm" class="grid"></form>
+      </div>
+      <footer>
+        <button class="btn ghost" data-close="modalForm">Batal</button>
+        <button class="btn primary" id="submitRecord">Simpan</button>
+      </footer>
+    </div>
+  </div>
+
+  <!-- Modal: Columns Manager -->
+  <div class="modal" id="modalColumns">
+    <div class="dialog">
+      <header>
+        <strong>Kelola Kolom</strong>
+        <button class="btn ghost" data-close="modalColumns">✕</button>
+      </header>
+      <div class="content">
+        <div class="muted" style="margin-bottom:10px">Tambah/ubah kolom. Tipe <b>Select</b> gunakan koma untuk opsi (misal: Aktif,Nonaktif).</div>
+        <div id="columnsList" class="grid"></div>
+        <button class="btn" id="btnAddCol" style="margin-top:10px">+ Tambah Kolom</button>
+      </div>
+      <footer>
+        <button class="btn ghost" data-close="modalColumns">Tutup</button>
+        <button class="btn primary" id="saveColumns">Simpan Kolom</button>
+      </footer>
+    </div>
+  </div>
+
+<script>
+  // ===== Utilities =====
+  const $ = sel => document.querySelector(sel);
+  const $$ = sel => Array.from(document.querySelectorAll(sel));
+  const uid = () => Math.random().toString(36).slice(2,10);
+  const STORAGE_KEY = 'dynamic-crud-state-v1';
+
+  const defaultState = {
+    columns: [
+      { key:'nama', label:'Nama', type:'text' },
+      { key:'email', label:'Email', type:'email' },
+      { key:'telepon', label:'Telepon', type:'tel' },
+      { key:'status', label:'Status', type:'select', options:['Aktif','Nonaktif'] }
+    ],
+    rows: []
+  };
+
+  let state = load();
+  let sort = { key: null, dir: 1 };
+  let editingId = null;
+
+  function save(){ localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); updateCounters(); }
+  function load(){ try{ return JSON.parse(localStorage.getItem(STORAGE_KEY)) || structuredClone(defaultState);}catch(e){ return structuredClone(defaultState);} }
+
+  function updateCounters(){
+    $('#countRows').textContent = state.rows.length;
+    $('#countCols').textContent = state.columns.length;
+  }
+
+  // ===== Rendering =====
+  function renderTable(){
+    const thead = $('#thead'); thead.innerHTML = '';
+    const trh = document.createElement('tr');
+    for (const col of state.columns){
+      const th = document.createElement('th'); th.className='nowrap';
+      th.innerHTML = `<button class="btn ghost" data-sort="${col.key}">${col.label} <span class="muted">↕</span></button>`;
+      trh.appendChild(th);
+    }
+    const thAct = document.createElement('th'); thAct.textContent='Aksi'; trh.appendChild(thAct);
+    thead.appendChild(trh);
+
+    // Body
+    const q = $('#q').value.trim().toLowerCase();
+    const tbody = $('#tbody'); tbody.innerHTML = '';
+
+    let rows = state.rows.map(r=>({...r}));
+    if (q){
+      rows = rows.filter(r => state.columns.some(c => String(r[c.key]||'').toLowerCase().includes(q)));
+    }
+    if (sort.key){
+      rows.sort((a,b)=>{
+        const av = (a[sort.key]??'').toString().toLowerCase();
+        const bv = (b[sort.key]??'').toString().toLowerCase();
+        return av>bv? sort.dir : av<bv? -sort.dir : 0;
+      });
+    }
+
+    if (!rows.length){ $('#empty').style.display='block'; } else { $('#empty').style.display='none'; }
+
+    for (const r of rows){
+      const tr = document.createElement('tr');
+      for (const c of state.columns){
+        const td = document.createElement('td');
+        let val = r[c.key] ?? '';
+        if (c.type==='select') td.innerHTML = `<span class="chip">${val}</span>`; else td.textContent = val;
+        tr.appendChild(td);
+      }
+      const tdAct = document.createElement('td'); tdAct.className='row-actions';
+      tdAct.innerHTML = `
+        <button class="btn" data-edit="${r.id}">Edit</button>
+        <button class="btn danger" data-del="${r.id}">Hapus</button>`;
+      tr.appendChild(tdAct);
+      tbody.appendChild(tr);
+    }
+    updateCounters();
+  }
+
+  // ===== Form Builder =====
+  function openForm(record=null){
+    editingId = record?.id || null;
+    $('#formTitle').textContent = editingId? 'Edit Data' : 'Tambah Data';
+    const form = $('#recordForm'); form.innerHTML='';
+    for (const c of state.columns){
+      const wrap = document.createElement('div'); wrap.className='field';
+      wrap.innerHTML = `<label>${c.label}</label>`;
+      let input;
+      if (c.type==='select'){
+        input = document.createElement('select');
+        (c.options||[]).forEach(opt=>{
+          const o = document.createElement('option'); o.value=opt; o.textContent=opt; input.appendChild(o);
+        })
+      } else if (c.type==='textarea'){
+        input = document.createElement('textarea'); input.rows=3;
+      } else {
+        input = document.createElement('input'); input.type=c.type||'text';
+      }
+      input.required = true; input.name = c.key; input.value = record? (record[c.key]??'') : '';
+      wrap.appendChild(input); form.appendChild(wrap);
+    }
+    toggleModal('modalForm', true);
+  }
+
+  // ===== Columns Manager =====
+  function openColumns(){
+    const list = $('#columnsList'); list.innerHTML='';
+    state.columns.forEach((c,i)=>list.appendChild(columnItem(c,i)));
+    toggleModal('modalColumns', true);
+  }
+  function columnItem(c={}, i){
+    const el = document.createElement('div'); el.className='pill'; el.style.display='grid'; el.style.gridTemplateColumns='1fr 130px 1fr 40px'; el.style.gap='8px'; el.style.alignItems='center'; el.style.padding='10px';
+    el.innerHTML = `
+      <input placeholder="key" value="${c.key||''}" title="key (unik, tanpa spasi)" style="background:#0f131b;border:1px solid var(--border);color:var(--text);border-radius:10px;padding:8px 10px">
+      <select title="tipe" style="background:#0f131b;border:1px solid var(--border);color:var(--text);border-radius:10px;padding:8px 10px">
+        ${['text','email','tel','number','date','select','textarea'].map(t=>`<option ${c.type===t?'selected':''}>${t}</option>`).join('')}
+      </select>
+      <input placeholder="Label / Opsi (koma)" value="${c.type==='select'?(c.options||[]).join(', '):(c.label||'')}" style="background:#0f131b;border:1px solid var(--border);color:var(--text);border-radius:10px;padding:8px 10px">
+      <button class="btn danger" title="hapus">🗑</button>`;
+    el.querySelector('button').onclick = ()=>{ el.remove(); };
+    return el;
+  }
+  function collectColumns(){
+    const items = Array.from($('#columnsList').children);
+    const cols = [];
+    for (const it of items){
+      const [keyEl,typeEl,labelOrOpts] = it.querySelectorAll('input,select');
+      const key = keyEl.value.trim();
+      const type = typeEl.value;
+      if (!key) continue;
+      if (type==='select'){
+        const options = labelOrOpts.value.split(',').map(s=>s.trim()).filter(Boolean);
+        cols.push({ key, label: keyToLabel(key), type, options });
+      } else {
+        const label = labelOrOpts.value.trim() || keyToLabel(key);
+        cols.push({ key, label, type });
+      }
+    }
+    return cols;
+  }
+  function keyToLabel(k){ return k.replace(/[_-]+/g,' ').replace(/\b\w/g, m=>m.toUpperCase()); }
+
+  // ===== Modal helpers =====
+  function toggleModal(id, show){ const m = document.getElementById(id); m.classList[show?'add':'remove']('active'); }
+  $$("[data-close]").forEach(btn=> btn.addEventListener('click', e=> toggleModal(e.target.dataset.close, false)) );
+
+  // ===== Event bindings =====
+  $('#btnAdd').onclick = ()=> openForm();
+  $('#btnColumns').onclick = ()=> openColumns();
+  $('#btnAddCol').onclick = ()=> $('#columnsList').appendChild(columnItem());
+
+  $('#saveColumns').onclick = ()=>{
+    const cols = collectColumns();
+    if (!cols.length) return alert('Minimal 1 kolom.');
+    state.columns = cols;
+    save(); renderTable(); toggleModal('modalColumns', false);
+  };
+
+  $('#submitRecord').onclick = (e)=>{
+    e.preventDefault(); const form = new FormData($('#recordForm'));
+    const row = { id: editingId || uid() };
+    for (const c of state.columns){ row[c.key] = form.get(c.key) ?? ''; }
+    if (editingId){
+      const i = state.rows.findIndex(r=>r.id===editingId);
+      if (i>-1) state.rows[i] = row;
+    } else {
+      state.rows.push(row);
+    }
+    save(); renderTable(); toggleModal('modalForm', false);
+  };
+
+  $('#tbody').addEventListener('click', (e)=>{
+    const delId = e.target.closest('button')?.dataset?.del;
+    const editId = e.target.closest('button')?.dataset?.edit;
+    if (delId){
+      if (confirm('Hapus baris ini?')){
+        state.rows = state.rows.filter(r=>r.id!==delId); save(); renderTable();
+      }
+    } else if (editId){
+      const rec = state.rows.find(r=>r.id===editId); openForm(rec);
+    }
+  });
+
+  $('#thead').addEventListener('click', (e)=>{
+    const key = e.target.closest('button')?.dataset?.sort; if (!key) return;
+    if (sort.key===key){ sort.dir*=-1; } else { sort={key,dir:1}; }
+    renderTable();
+  });
+
+  $('#q').addEventListener('input', renderTable);
+  document.addEventListener('keydown', (e)=>{
+    if ((e.ctrlKey||e.metaKey) && e.key.toLowerCase()==='k') { e.preventDefault(); $('#q').focus(); }
+    if (e.key==='Escape'){ toggleModal('modalForm', false); toggleModal('modalColumns', false); }
+  });
+
+  $('#btnClear').onclick = ()=>{
+    if (confirm('Hapus semua data?')){ state.rows = []; save(); renderTable(); }
+  };
+
+  $('#btnExport').onclick = ()=>{
+    const blob = new Blob([JSON.stringify(state,null,2)], {type:'application/json'});
+    const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = 'dynamic-crud-data.json'; a.click();
+  };
+
+  $('#importFile').onchange = (e)=>{
+    const file = e.target.files[0]; if (!file) return;
+    const fr = new FileReader();
+    fr.onload = ()=>{
+      try{
+        const data = JSON.parse(fr.result);
+        if (!data.columns || !Array.isArray(data.columns)) throw new Error('Berkas tidak valid');
+        state = data; save(); renderTable();
+      }catch(err){ alert('Gagal import: '+ err.message); }
+      e.target.value = '';
+    };
+    fr.readAsText(file);
+  };
+
+  // ===== Init =====
+  function ensureColumnLabels(){
+    state.columns = state.columns.map(c=> ({ label: c.label || keyToLabel(c.key), ...c }));
+  }
+  ensureColumnLabels();
+  updateCounters();
+  renderTable();
+</script>
+</body>
+</html>

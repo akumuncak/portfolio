@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CafeKu</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Arial', sans-serif; line-height: 1.6; background: #fff; scroll-behavior: smooth; }
+
+    /* Navbar */
+    nav {
+      position: sticky; top: 0;
+      background: rgba(0,0,0,0.8);
+      color: white;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 10px 20px;
+      z-index: 1000;
+    }
+    nav h1 { font-size: 22px; }
+    nav ul { list-style: none; display: flex; }
+    nav ul li { margin-left: 20px; }
+    nav ul li a {
+      color: white; text-decoration: none; transition: 0.3s;
+    }
+    nav ul li a:hover { color: #ffcc00; }
+
+    /* Hero */
+    .hero {
+      background: url('https://images.unsplash.com/photo-1504674900247-0877df9cc836') center/cover no-repeat;
+      height: 100vh;
+      display: flex; justify-content: center; align-items: center;
+      color: white; text-align: center; padding: 20px;
+    }
+    .hero h2 { font-size: 48px; margin-bottom: 10px; text-shadow: 2px 2px 6px black; }
+    .hero p { font-size: 20px; text-shadow: 1px 1px 4px black; }
+
+    /* Menu Section */
+    .menu {
+      padding: 60px 20px;
+      text-align: center;
+    }
+    .menu h2 { font-size: 32px; margin-bottom: 20px; }
+    .cards {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px; margin-top: 20px;
+    }
+    .card {
+      background: white; border-radius: 10px; overflow: hidden;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+      transition: transform 0.3s;
+    }
+    .card:hover { transform: scale(1.05); }
+    .card img { width: 100%; height: 200px; object-fit: cover; }
+    .card h3 { margin: 15px 10px 5px; }
+    .card p { margin: 0 10px 20px; color: #555; font-style: italic; }
+
+    /* About */
+    .about {
+      padding: 60px 20px;
+      background: #f8f8f8;
+      text-align: center;
+    }
+    .about h2 { margin-bottom: 20px; }
+    .about p { max-width: 700px; margin: auto; color: #444; }
+
+    /* Contact */
+    .contact {
+      padding: 60px 20px;
+      text-align: center;
+    }
+    .contact h2 { margin-bottom: 20px; }
+    .contact p { margin-bottom: 8px; }
+    iframe { width: 100%; max-width: 600px; height: 300px; border: none; border-radius: 10px; margin-top: 20px; }
+
+    /* Footer */
+    footer {
+      background: black; color: white;
+      text-align: center; padding: 15px;
+    }
+
+    /* 🔥 Animasi Scroll */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 1s ease-out, transform 1s ease-out;
+    }
+    .fade-in.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  </style>
+</head>
+<body>
+  <!-- Navbar -->
+  <nav>
+    <h1>CafeKu</h1>
+    <ul>
+      <li><a href="index.html">Beranda</a></li>
+      <li><a href="#menu">Menu</a></li>
+      <li><a href="#about">Tentang</a></li>
+      <li><a href="#contact">Kontak</a></li>
+    </ul>
+  </nav>
+
+  <!-- Hero -->
+  <section class="hero" id="home">
+    <div class="fade-in">
+      <h2>CafeKu</h2>
+      <p>kopi terbaik dan suasana nyaman setiap hari</p>
+    </div>
+  </section>
+
+  <!-- Menu -->
+  <section class="menu fade-in" id="menu">
+    <h2>Menu</h2>
+    <div class="cards">
+      <div class="card fade-in">
+        <img src="https://images.unsplash.com/photo-1511920170033-f8396924c348" alt="Kopi Latte">
+        <h3>Kopi Latte</h3>
+        <p>Aroma khas dengan sentuhan creamy</p>
+      </div>
+      <div class="card fade-in">
+        <img src="https://images.unsplash.com/photo-1551782450-17144efb9c50" alt="Burger Spesial">
+        <h3>Burger Spesial</h3>
+        <p>Paduan daging juicy dan saus rahasia</p>
+      </div>
+      <div class="card fade-in">
+        <img src="https://images.unsplash.com/photo-1542444459-db89d62c3cc1" alt="Cappuccino">
+        <h3>Cappuccino</h3>
+        <p>Espresso berpadu dengan buih susu lembut</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- About -->
+  <section class="about fade-in" id="about">
+    <h2>Tentang Kami</h2>
+    <p>
+      Cafe Santai adalah tempat ideal untuk bersantai, berkumpul, dan menikmati sajian kopi berkualitas tinggi. 
+      Kami percaya bahwa setiap cangkir kopi memiliki cerita, dan kami ingin menjadi bagian dari cerita hari Anda.
+    </p>
+  </section>
+
+  <!-- Contact -->
+  <section class="contact fade-in" id="contact">
+    <h2>Kontak & Lokasi</h2>
+    <p>📍 Jl. **** No. *****, *****</p>
+    <p>📞 08**-****-****</p>
+    <p>📧 info@gmail.com</p>
+    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3162.917566927626!2d106.8271538153158!3d-6.175387895517859!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69f3e3f4f0f0f%3A0x123456789abcdef!2sMonas!5e0!3m2!1sid!2sid!4v1680000000000"></iframe>
+  </section>
+
+  <!-- Footer -->
+  <footer class="fade-in">
+    <p>© Cafe</p>
+  </footer>
+
+  <!-- Script Animasi Scroll -->
+  <script>
+    // Fade-in saat scroll
+    const elements = document.querySelectorAll('.fade-in');
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('show');
+        }
+      });
+    }, { threshold: 0.2 });
+    elements.forEach(el => observer.observe(el));
+
+    // Smooth scroll (sudah aktif via CSS scroll-behavior)
+    // Tambahan highlight menu aktif
+    const navLinks = document.querySelectorAll("nav ul li a");
+    const sections = document.querySelectorAll("section");
+
+    window.addEventListener("scroll", () => {
+      let current = "";
+      sections.forEach(sec => {
+        const sectionTop = sec.offsetTop - 60;
+        if (pageYOffset >= sectionTop) {
+          current = sec.getAttribute("id");
+        }
+      });
+      navLinks.forEach(link => {
+        link.classList.remove("active");
+        if (link.getAttribute("href") === "#" + current) {
+          link.classList.add("active");
+        }
+      });
+    });
+  </script>
+  <style>
+    /* highlight link aktif */
+    nav ul li a.active {
+      color: #ffcc00;
+      font-weight: bold;
+    }
+  </style>
+</body>
+</html>
